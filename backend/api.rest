@@ -1,0 +1,38 @@
+###
+GET  http://172.16.99.35:3001/api/users HTTP/1.1
+###
+DELETE  http://172.16.99.35:3001/api/users/634669e493129671968eddc0
+###
+POST http://172.16.99.35:3001/api/users
+content-type: application/json
+
+{
+  "username": "admin",
+  "password": "123456",
+  "name": "超级管理员"
+}
+
+### 登录
+POST http://172.16.99.35:3001/api/login
+content-type: application/json
+
+{
+  "username": "admin",
+  "password": "123456"
+}
+
+###
+GET http://172.16.99.35:3001/api/notes
+
+###
+DELETE http://172.16.99.35:3001/api/notes/63419131432cb8d0f963d7dd
+
+###
+POST http://172.16.99.35:3001/api/notes
+content-type: application/json
+authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2MzQ2NmZhNmQyYmQ5OTI1NWIzMjYyZGMiLCJpYXQiOjE2NjU1NjIxNjcsImV4cCI6MTY2NTU2MjE4N30.v_TxXVRPmXDd9sGcmz-A2Gtu-GxzjccKtnGn-64OiH4
+
+{
+  "content": "2创建去医院2",
+  "important": true
+}

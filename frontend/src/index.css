@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.full-stack-app {
+  padding: 10px 20px;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+h1 {
+  color: green;
+  font-style: italic;
+}
+
+.note {
+  color: grey;
+  padding-top: 5px;
+  font-size: 15px;
+}
+
+.error {
+  color: red;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.input-message {
+  min-width: 300px;
+}
+
+.loginForm {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.loginForm>input {
+  margin-right: 10px;
+}
+
+button {
+  margin-right: 10px;
+}
+
+.block {
+  border: 1px dashed #ddd;
+  padding: 10px;
+}
