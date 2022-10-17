@@ -5,16 +5,17 @@ import { useLoaderData } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
 import { getContacts, createContact } from '../contacts'
 
-export async function action(props) {
-  console.log(props)
+export async function rootAction(props) {
+  console.log('root action create contact then to edit ', props)
   const contact = await createContact()
   return redirect(`/contacts/${contact.id}/edit`)
 }
 
-export async function loader({ request }) {
+export async function rootLoader({ request }) {
   const url = new URL(request.url)
   const q = url.searchParams.get('q')
   const contacts = await getContacts(q)
+  console.log('root loader', contacts)
   return { contacts, q }
 }
 
@@ -31,6 +32,12 @@ export default function Root() {
     document.getElementById('q').value = q
   }, [q])
 
+  const searchContact = (event) => {
+    const isFirstSearch = q == null
+    console.log('search contact', q)
+    submit(event.currentTarget.form, { replace: !isFirstSearch })
+  }
+
   return (
     <>
       <div id="sidebar">
@@ -39,19 +46,15 @@ export default function Root() {
           <Form id="search-form" role="search">
             <input
               id="q"
-              aria-label="Search contacts"
               placeholder="Search"
               type="search"
               name="q"
               className={searching ? 'loading' : ''}
               defaultValue={q}
-              onChange={(event) => {
-                const isFirstSearch = q == null
-                submit(event.currentTarget.form, { replace: !isFirstSearch })
-              }}
+              onChange={(event) => searchContact(event)}
             />
-            <div id="search-spinner" aria-hidden hidden={!searching} />
-            <div className="sr-only" aria-live="polite"></div>
+            <div id="search-spinner" hidden={!searching} />
+            <div className="sr-only"></div>
           </Form>
           <Form method="post">
             <button type="submit">New</button>
