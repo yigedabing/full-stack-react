@@ -1,2 +1,4 @@
 backend/node_modules
 front/node_modules
+vite-react-demo/node_modules
+vite-react-demo/dist
