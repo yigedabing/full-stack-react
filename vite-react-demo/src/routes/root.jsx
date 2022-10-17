@@ -1,23 +1,8 @@
 import { useEffect } from 'react'
-import { NavLink, redirect, useNavigation, useSubmit } from 'react-router-dom'
+import { NavLink, useNavigation, useSubmit } from 'react-router-dom'
 import { Form } from 'react-router-dom'
 import { useLoaderData } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
-import { getContacts, createContact } from '../contacts'
-
-export async function rootAction(props) {
-  console.log('root action create contact then to edit ', props)
-  const contact = await createContact()
-  return redirect(`/contacts/${contact.id}/edit`)
-}
-
-export async function rootLoader({ request }) {
-  const url = new URL(request.url)
-  const q = url.searchParams.get('q')
-  const contacts = await getContacts(q)
-  console.log('root loader', contacts)
-  return { contacts, q }
-}
 
 export default function Root() {
   const { contacts, q } = useLoaderData()

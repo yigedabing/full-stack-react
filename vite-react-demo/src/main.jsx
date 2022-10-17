@@ -2,14 +2,22 @@ import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
-import Root, { rootLoader, rootAction } from './routes/root'
-const ErrorPage = lazy(() => import('./error-page'))
-import { contactLoader, contactAction } from './routes/contact'
+
+import {
+  contactLoader,
+  contactAction,
+  editAction,
+  destroyAction,
+  rootLoader,
+  rootAction,
+} from './routes/loader-action'
+
+// lazy
 const Contact = lazy(() => import('./routes/contact'))
-import { editAction } from './routes/edit'
 const EditContact = lazy(() => import('./routes/edit'))
-import { action as destroyAction } from './routes/destroy'
-const Index = lazy(() => import('./routes/index'))
+const Default = lazy(() => import('./routes/default'))
+const ErrorPage = lazy(() => import('./error-page'))
+const Root = lazy(() => import('./routes/root'))
 
 const router = createBrowserRouter([
   {
@@ -23,7 +31,7 @@ const router = createBrowserRouter([
         action: rootAction,
         errorElement: <ErrorPage />,
         children: [
-          { index: true, element: <Index /> },
+          { index: true, element: <Default /> },
           {
             path: 'contacts/:contactId',
             element: <Contact />,
