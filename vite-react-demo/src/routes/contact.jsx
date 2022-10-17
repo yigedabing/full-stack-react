@@ -3,12 +3,19 @@ import { Form } from 'react-router-dom'
 import { getContact, updateContact } from '../contacts'
 
 export async function loader({ params }) {
-  return getContact(params.contactId)
+  const contact = await getContact(params.contactId)
+  if (!contact) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'contact page Not Found',
+    })
+  }
+  return contact
 }
 
 export async function action({ request, params }) {
   let formData = await request.formData()
-  console.log(params)
+
   return updateContact(params.contactId, {
     favorite: formData.get('favorite') === 'true',
   })
