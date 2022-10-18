@@ -1,4 +1,18 @@
-import { Form, useLoaderData, useNavigate } from 'react-router-dom'
+import { Form, useLoaderData, useNavigate, redirect } from 'react-router-dom'
+import { updateContact, deleteContact } from '../contacts'
+
+export async function editAction({ request, params }) {
+  const formData = await request.formData()
+  const updates = Object.fromEntries(formData)
+  await updateContact(params.contactId, updates)
+  return redirect(`/contacts/${params.contactId}`)
+}
+
+export async function destroyAction({ params }) {
+  // throw new Error('oh dang!')
+  await deleteContact(params.contactId)
+  return redirect('/')
+}
 
 export default function EditContact() {
   const contact = useLoaderData()

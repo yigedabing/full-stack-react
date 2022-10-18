@@ -1,23 +1,13 @@
-import React, { lazy, Suspense } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 
-import {
-  contactLoader,
-  contactAction,
-  editAction,
-  destroyAction,
-  rootLoader,
-  rootAction,
-} from './routes/loader-action'
-
-// lazy
-const Contact = lazy(() => import('./routes/contact'))
-const EditContact = lazy(() => import('./routes/edit'))
-const Default = lazy(() => import('./routes/default'))
-const ErrorPage = lazy(() => import('./error-page'))
-const Root = lazy(() => import('./routes/root'))
+import Root, { rootLoader, rootAction } from './routes/root'
+import Index from './routes'
+import ErrorPage from './error-page'
+import Contact, { contactLoader, contactAction } from './routes/contact'
+import EditContact, { editAction, destroyAction } from './routes/edit'
 
 const router = createBrowserRouter([
   {
@@ -31,7 +21,7 @@ const router = createBrowserRouter([
         action: rootAction,
         errorElement: <ErrorPage />,
         children: [
-          { index: true, element: <Default /> },
+          { index: true, element: <Index /> },
           {
             path: 'contacts/:contactId',
             element: <Contact />,
@@ -57,8 +47,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Suspense>
-      <RouterProvider router={router} />
-    </Suspense>
+    <RouterProvider router={router} />
   </React.StrictMode>
 )
