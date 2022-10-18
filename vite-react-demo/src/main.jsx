@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
@@ -8,6 +8,9 @@ import Index from './routes'
 import ErrorPage from './error-page'
 import Contact, { contactLoader, contactAction } from './routes/contact'
 import EditContact, { editAction, destroyAction } from './routes/edit'
+
+const User = lazy(() => import('./pages/user/User'))
+const Order = lazy(() => import('./pages/order/Order'))
 
 const router = createBrowserRouter([
   {
@@ -38,6 +41,22 @@ const router = createBrowserRouter([
             path: 'contacts/:contactId/destroy',
             action: destroyAction,
             errorElement: <div>Oops! There was an error.</div>,
+          },
+          {
+            path: 'user',
+            element: (
+              <Suspense>
+                <User />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'order',
+            element: (
+              <Suspense>
+                <Order />
+              </Suspense>
+            ),
           },
         ],
       },
