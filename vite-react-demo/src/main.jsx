@@ -11,6 +11,7 @@ import EditContact, { editAction, destroyAction } from './routes/edit'
 
 const User = lazy(() => import('./pages/user/User'))
 const Order = lazy(() => import('./pages/order/Order'))
+const Login = lazy(() => import('./pages/login/Login'))
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,14 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: '/login',
+    element: (
+      <Suspense>
+        <Login />
+      </Suspense>
+    ),
   },
 ])
 
